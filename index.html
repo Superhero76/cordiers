@@ -75,7 +75,7 @@ h2{font-weight:normal;font-size:18px;margin:30px 0 4px;text-align:center;color:v
 <p class="compte" id="compte" aria-live="polite" hidden>Le compte n'y est pas.</p>
 <div class="clavier" id="clavier"><div class="groupe" aria-label="verbes"><button data-m="dapi">dapi</button><button data-m="nagu">nagu</button><button data-m="tinu">tinu</button></div><div class="groupe" aria-label="gens"><button data-m="eret">eret</button><button data-m="fepan">fepan</button></div><div class="groupe" aria-label="choses"><button data-m="deki">deki</button><button data-m="kusol">kusol</button><button data-m="rozu">rozu</button><button data-m="vilun">vilun</button><button data-m="zazun">zazun</button></div><div class="groupe" aria-label="nombres"><button data-m="dirul">dirul</button><button data-m="ekgizir">ekgizir</button><button data-m="ekkitur">ekkitur</button><button data-m="ekmupir">ekmupir</button><button data-m="eknupi">eknupi</button><button data-m="ekpazal">ekpazal</button><button data-m="eksulan">eksulan</button><button data-m="fival">fival</button><button data-m="gizir">gizir</button><button data-m="kitur">kitur</button><button data-m="mupir">mupir</button><button data-m="nupi">nupi</button><button data-m="nurin">nurin</button><button data-m="omel">omel</button><button data-m="ragis">ragis</button><button data-m="rezil">rezil</button><button data-m="mogan">mogan</button></div><div class="groupe" aria-label="terminaisons"><button data-m="-ar" class=suffixe>-ar</button><button data-m="-um" class=suffixe>-um</button></div></div>
 <div class="actions"><button id="efface">Effacer le dernier mot</button><button class="dire" id="dire">Dire</button></div>
-<div id="fin"><p>Le cordier pose son épissoir et raconte.</p><p class="parole" id="finTexte"></p><button id="reecouter">Le réécouter</button></div>
+<div id="fin"><p>Le cordier pose son épissoir et raconte.</p><p class="parole" id="finTexte"></p><button id="reecouter">Le réécouter</button><p><em>Dans chaque scène, il a dit son compte : réécoute-les.</em></p></div>
 <div class="bas"><button id="btnSon">Couper le son</button><button id="raz">Tout recommencer</button></div>
 <script>
 "use strict";
@@ -345,6 +345,7 @@ function boucle(ms) {
 function creerSons(o) {
   var SONS = o.sons || {}, CLE = o.cle, btn = o.bouton;
   var coupe = false, ctx = null, maitre = null, eveille = false, tampons = {}, boucles = {}, voulu = {}, ponctuels = [], hasards = [];
+  try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) { }
   try { coupe = localStorage.getItem(CLE) === "0"; } catch (e) { }
   function audio() {
     if (!ctx) {
